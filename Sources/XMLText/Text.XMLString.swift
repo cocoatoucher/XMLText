@@ -68,14 +68,14 @@ struct Text_XMLString_Previews: PreviewProvider {
             }
             .previewLayout(.sizeThatFits)
             
-            let string = "regular <italicStyle>italic&striked</italicStyle> <boldStyle>underlined</boldStyle>"
+            let firstString = "regular <italicStyle>italic&striked</italicStyle> <boldStyle>underlined</boldStyle>"
             Text(
                 xmlString: string,
                 styleGroup: firstStyleGroup
             )
             .previewLayout(.sizeThatFits)
 
-            let string = "regular <moreKerning>more kerning</moreKerning> <moreTracking>more tracking</moreTracking>"
+            let secondString = "regular <moreKerning>more kerning</moreKerning> <moreTracking>more tracking</moreTracking>"
             Text(
                 xmlString: string,
                 styleGroup: secondStyleGroup
@@ -83,7 +83,7 @@ struct Text_XMLString_Previews: PreviewProvider {
             .frame(maxWidth: 100.0)
             .previewLayout(.sizeThatFits)
 
-            let string = "regular <moreBaselineOffset>more baseline offset</moreBaselineOffset>"
+            let thirdString = "regular <moreBaselineOffset>more baseline offset</moreBaselineOffset>"
             Text(
                 xmlString: string,
                 styleGroup: thirdStyleGroup
