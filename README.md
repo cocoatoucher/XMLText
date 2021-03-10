@@ -2,7 +2,7 @@
 
 XMLText is a mini library that can generate SwiftUI `Text` from a given XML string with tags. It uses `+` operator of `Text` to compose the final output.
 
-***The original idea comes directly from [`SwiftRichString` library by `Daniele Margutti` on GitHub](). Code for XML parsing, StyleProtocol, and StyleGroup are taken from this library, slight modifications are made to them in order to generate `SwiftUI` `Text` instead of `NSAttributedString`.***
+***The original idea comes directly from [`SwiftRichString` library by `Daniele Margutti` on GitHub](https://github.com/malcommac/SwiftRichString). Code for XML parsing, StyleProtocol, and StyleGroup are taken from this library, slight modifications are made to them in order to generate `SwiftUI` `Text` instead of `NSAttributedString`.***
 
 This is really useful for localising your apps for styled strings without having to know the location of the strings in the code that needs to be styled. This is a pretty fine alternative to having to use `NSAttributedString` with `UIViewRepresentable` of a `UILabel` in a `SwiftUI` app, as the layout of `UIViewRepresentable` for such dynamic views as `UILabel` doesn't always work and is prone to glitches when combined with other `SwiftUI` views.
 
