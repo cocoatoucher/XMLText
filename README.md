@@ -44,7 +44,7 @@ let normalStyle = Style { style in
 }
 
 let italicStyle = Style { style in
-	style.font = .italic(.system(size: 20))()
+	style.font = Font.italic(.system(size: 20))()
 	style.foregroundColor = .blue
 }
 
