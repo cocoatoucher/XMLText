@@ -70,14 +70,14 @@ struct Text_XMLString_Previews: PreviewProvider {
             
             let firstString = "regular <italicStyle>italic&striked</italicStyle> <boldStyle>underlined</boldStyle>"
             Text(
-                xmlString: string,
+                xmlString: firstString,
                 styleGroup: firstStyleGroup
             )
             .previewLayout(.sizeThatFits)
 
             let secondString = "regular <moreKerning>more kerning</moreKerning> <moreTracking>more tracking</moreTracking>"
             Text(
-                xmlString: string,
+                xmlString: secondString,
                 styleGroup: secondStyleGroup
             )
             .frame(maxWidth: 100.0)
@@ -85,7 +85,7 @@ struct Text_XMLString_Previews: PreviewProvider {
 
             let thirdString = "regular <moreBaselineOffset>more baseline offset</moreBaselineOffset>"
             Text(
-                xmlString: string,
+                xmlString: thirdString,
                 styleGroup: thirdStyleGroup
             )
             .previewLayout(.sizeThatFits)
@@ -99,7 +99,7 @@ struct Text_XMLString_Previews: PreviewProvider {
         }
         
         let italicStyle = Style { style in
-            style.font = .italic(.system(size: 20))()
+            style.font = Font.italic(.system(size: 20))()
             style.foregroundColor = .blue
         }
         
@@ -118,13 +118,13 @@ struct Text_XMLString_Previews: PreviewProvider {
         }
         
         let italicStyle = Style { style in
-            style.font = .italic(.system(size: 20))()
+            style.font = Font.italic(.system(size: 20))()
             style.foregroundColor = .blue
             style.strikethroughColor = .yellow
         }
         
         let boldStyle = Style { style in
-            style.font = .bold(.system(size: 20))()
+            style.font = Font.bold(.system(size: 20))()
             style.foregroundColor = .yellow
             style.underlineColor = .red
         }
@@ -145,13 +145,13 @@ struct Text_XMLString_Previews: PreviewProvider {
         }
         
         let moreKerning = Style { style in
-            style.font = .italic(.system(size: 20))()
+            style.font = Font.italic(.system(size: 20))()
             style.foregroundColor = .blue
             style.kerning = 10.0
         }
         
         let moreTracking = Style { style in
-            style.font = .bold(.system(size: 20))()
+            style.font = Font.bold(.system(size: 20))()
             style.foregroundColor = .yellow
             style.tracking = 20.0
         }
@@ -172,7 +172,7 @@ struct Text_XMLString_Previews: PreviewProvider {
         }
         
         let moreBaselineOffset = Style { style in
-            style.font = .italic(.system(size: 20))()
+            style.font = Font.italic(.system(size: 20))()
             style.foregroundColor = .blue
             style.baselineOffset = 10.0
         }
