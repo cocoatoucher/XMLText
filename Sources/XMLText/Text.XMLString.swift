@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-extension Text {
-    /// Creates a Text with a given xml string and a style group.
-    /// If unable to parse the xml, raw string value will be passed to
-    /// resulting Text view.
+public extension Text {
+    /// Creates a Text with a given XML string and a style group.
+    /// If unable to parse the XML, raw string value will be passed to
+    /// resulting Text.
     ///
     /// - Parameters:
     ///   - xmlString: xmlString to be parsed and styled.
