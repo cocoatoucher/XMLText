@@ -78,7 +78,7 @@ Adding tap gesture recognizer to individual parts of `Text` while using `+` oper
  
 If you have only one link within a given paragraph or sentence, consider getting away with adding a tap gesture recognizer to the whole `Text` of paragraph or sentence which is generated via `XMLText` library.
 
-If you have multiple links, good luck with `NSAttributedString` and `UIViewRepresentable` of a `UITextView`. 🤷‍♂️
+If you have multiple links within the same sentence or paragraph, good luck with `NSAttributedString` and `UIViewRepresentable` of a `UITextView`. 🤷‍♂️
 
 ### 🎆 Images (not supported)
 
