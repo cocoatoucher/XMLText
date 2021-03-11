@@ -8,7 +8,7 @@ This is really useful for localising your apps for styled strings without having
 
 ## Examples
 <p align="center">
-<img src="Docs/examples.png" max-width="80%" alt="glide devices"/>
+<img src="Docs/examples.png" width="400" max-width="80%" alt="glide devices"/>
 </p>
 
 <p align="center">
