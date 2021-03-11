@@ -5,7 +5,7 @@ XMLText is a mini library that can generate SwiftUI `Text` from a given XML stri
 ```
 Text(
     xmlString: "my <bold>localized</bold> and <italic>styled</italic> string",
-    styleGroup: myStyleGroup
+    styleGroup: myStyleDefinitions
 )
 ```
 
