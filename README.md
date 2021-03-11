@@ -1,4 +1,6 @@
-# XMLText
+<p align="center">
+<img src="Docs/logo.png" width="300" max-width="80%" alt="glide"/>
+</p>
 
 XMLText is a mini library that can generate SwiftUI `Text` from a given XML string with tags. It uses `+` operator of `Text` to compose the final output.
 
