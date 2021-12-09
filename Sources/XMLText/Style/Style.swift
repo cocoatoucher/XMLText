@@ -30,13 +30,19 @@ public class Style: StyleProtocol {
     
     public var strikethroughColor: Color?
     
+    public var strikethroughStyle: NSUnderlineStyle?
+    
     public var underlineColor: Color?
+    
+    public var underlineStyle: NSUnderlineStyle?
     
     public var kerning: CGFloat?
     
     public var tracking: CGFloat?
     
     public var baselineOffset: CGFloat?
+    
+    public var link: URL?
     
     public init(_ handler: ((Style) -> Void)? = nil) {
         handler?(self)
@@ -51,10 +57,16 @@ public class Style: StyleProtocol {
             result.append(.foregroundColor(foregroundColor))
         }
         if let strikethroughColor = strikethroughColor {
-            result.append(.strikethrough(strikethroughColor))
+            result.append(.strikethroughColor(strikethroughColor))
+        }
+        if let strikethroughStyle = strikethroughStyle {
+            result.append(.strikethroughStyle(strikethroughStyle))
         }
         if let underlineColor = underlineColor {
             result.append(.underline(underlineColor))
+        }
+        if let underlineStyle = underlineStyle {
+            result.append(.underlineStyle(underlineStyle))
         }
         if let kerning = kerning {
             result.append(.kerning(kerning))
@@ -64,6 +76,9 @@ public class Style: StyleProtocol {
         }
         if let baselineOffset = baselineOffset {
             result.append(.baselineOffset(baselineOffset))
+        }
+        if let link = link {
+            result.append(.link(link))
         }
         return result
     }

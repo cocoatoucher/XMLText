@@ -17,22 +17,21 @@ public extension Text {
     ///   - styleGroup: Style group used for styling.
     init(xmlString: String, styleGroup: StyleGroup) {
         do {
-            var text = Text("")
+            var text = AttributedString()
             let xmlParser = XMLTextBuilder(
                 styleGroup: styleGroup,
                 string: xmlString,
                 didFindNewString: { string, styles in
-                    var currentText = Text(string)
-                    
-                    for style in styles.reversed() {
+                    var currentText = AttributedString(string)
+                    if let style = styles.last {
                         currentText = style.add(to: currentText)
                     }
-                    text = text + currentText
+                    text += currentText
                 }
             )
             if let xmlParser = xmlParser {
                 try xmlParser.parse()
-                self = text
+                self = Text(text)
             } else {
                 self = Text(xmlString)
             }
@@ -121,12 +120,14 @@ struct Text_XMLString_Previews: PreviewProvider {
             style.font = Font.italic(.system(size: 20))()
             style.foregroundColor = .blue
             style.strikethroughColor = .yellow
+            style.strikethroughStyle = .single
         }
         
         let boldStyle = Style { style in
             style.font = Font.bold(.system(size: 20))()
             style.foregroundColor = .yellow
             style.underlineColor = .red
+            style.underlineStyle = .single
         }
         
         return .init(
