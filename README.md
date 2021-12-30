@@ -2,7 +2,7 @@
 <img src="Docs/logo.png" width="300" max-width="80%" alt="glide"/>
 </p>
 
-XMLText is a mini library that can generate SwiftUI `Text` from a given XML string with tags. It uses `+` operator of `Text` to compose the final output.
+XMLText is a mini library that can generate SwiftUI `Text` from a given XML string with tags. It uses `AttributedString` to compose the final text output.
 
 ```
 Text(
@@ -72,19 +72,14 @@ Text(
 )
 ```
 
-### 🔗 Links (not supported)
+### 🔗 Links
 
-It is currently not supported in `SwiftUI` to combine other `View`(e.g. `Button`) elements with `Text` elements using `+` operator.
-
-Adding tap gesture recognizer to individual parts of `Text` while using `+` operator is also not supported, as gesture recognizer modifiers return an opaque type of `View`, which means it is not `Text` anymore, then it can't be added to other `Text`.
- 
-If you have only one link within a given paragraph or sentence, consider getting away with adding a tap gesture recognizer to the whole `Text` of paragraph or sentence which is generated via `XMLText` library.
-
-If you have multiple links within the same sentence or paragraph, good luck with `NSAttributedString` and `UIViewRepresentable` of a `UITextView`. 🤷‍♂️
+You can add links inside your strings via:
+`<a href="http://www.example.com">This is a link</a>`
 
 ### 🎆 Images (not supported)
 
-Similar to links, it is currently not supported in `SwiftUI` to combine `Image` elements with `Text` using `+` operator.
+It is currently not supported to include `Image` elements within `AttributedString`.
 
 ### Custom XML Attributes (not supported)
 

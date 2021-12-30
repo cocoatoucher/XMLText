@@ -8,6 +8,7 @@
 import SwiftUI
 
 public extension Text {
+    
     /// Creates a Text with a given XML string and a style group.
     /// If unable to parse the XML, raw string value will be passed to
     /// resulting Text.
@@ -17,21 +18,13 @@ public extension Text {
     ///   - styleGroup: Style group used for styling.
     init(xmlString: String, styleGroup: StyleGroup) {
         do {
-            var text = AttributedString()
             let xmlParser = XMLTextBuilder(
                 styleGroup: styleGroup,
-                string: xmlString,
-                didFindNewString: { string, styles in
-                    var currentText = AttributedString(string)
-                    if let style = styles.last {
-                        currentText = style.add(to: currentText)
-                    }
-                    text += currentText
-                }
+                string: xmlString
             )
             if let xmlParser = xmlParser {
                 try xmlParser.parse()
-                self = Text(text)
+                self = Text(xmlParser.text)
             } else {
                 self = Text(xmlString)
             }

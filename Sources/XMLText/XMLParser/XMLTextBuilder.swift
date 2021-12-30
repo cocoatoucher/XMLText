@@ -33,8 +33,6 @@ class XMLTextBuilder: NSObject {
     
     // MARK: Private Properties
     
-    private let didFindNewString: (String, [StyleProtocol]) -> Void
-    
     private static let topTag = "source"
     
     /// Parser engine.
@@ -71,17 +69,18 @@ class XMLTextBuilder: NSObject {
 
     init?(
         styleGroup: StyleGroup,
-        string: String,
-        didFindNewString: @escaping (String, [StyleProtocol]) -> Void
+        string: String
     ) {
         self.styleGroup = styleGroup
         
-        self.didFindNewString = didFindNewString
-
-        let xmlString = (styleGroup.xmlParsingOptions.contains(.escapeString) ? string.escapeWithUnicodeEntities() : string)
-        let xml = (styleGroup.xmlParsingOptions.contains(.doNotWrapXML) ?
-                    xmlString :
-                    "<\(XMLTextBuilder.topTag)>\(xmlString)</\(XMLTextBuilder.topTag)>")
+        let xmlString = (
+            styleGroup.xmlParsingOptions.contains(.escapeString) ?
+            string.escapeWithUnicodeEntities()
+            : string
+        )
+        let xml = styleGroup.xmlParsingOptions.contains(.doNotWrapXML) ?
+        xmlString :
+        "<\(XMLTextBuilder.topTag)>\(xmlString)</\(XMLTextBuilder.topTag)>"
         
         guard let data = xml.data(using: String.Encoding.utf8) else {
             return nil
@@ -91,7 +90,11 @@ class XMLTextBuilder: NSObject {
         
         if let baseStyle = styleGroup.baseStyle {
             self.xmlStylers.append(
-                XMLDynamicStyle(tag: XMLTextBuilder.topTag, style: baseStyle)
+                XMLDynamicStyle(
+                    tag: XMLTextBuilder.topTag,
+                    style: baseStyle,
+                    xmlAttributes: nil
+                )
             )
         }
         
@@ -127,7 +130,8 @@ class XMLTextBuilder: NSObject {
             xmlStylers.append(
                 XMLDynamicStyle(
                     tag: elementName,
-                    style: styles[elementName]
+                    style: styles[elementName],
+                    xmlAttributes: attributes
                 )
             )
         }
@@ -137,8 +141,28 @@ class XMLTextBuilder: NSObject {
         xmlStylers.removeLast()
     }
     
+    private(set) var text = AttributedString()
+    private let xmlAttributesResolver = StandardXMLAttributesResolver()
+    
     private func foundNewString() {
-        didFindNewString(currentString ?? "", xmlStylers.compactMap { $0.style })
+        var currentText = AttributedString(currentString ?? "")
+        
+        guard let xmlStyler = xmlStylers.last else {
+            return
+        }
+        
+        if let style = xmlStyler.style {
+            currentText = style.add(to: currentText)
+        }
+        
+        if xmlStyler.xmlAttributes != nil {
+            xmlAttributesResolver.applyDynamicAttributes(
+                to: &currentText,
+                xmlStyle: xmlStyler
+            )
+        }
+        text += currentText
+        
         currentString = nil
     }
     
@@ -177,42 +201,3 @@ extension XMLTextBuilder: XMLParserDelegate {
         currentString = (currentString ?? "").appending(string)
     }
 }
-
-private class XMLDynamicStyle {
-    
-    // MARK: - Public Properties
-    
-    /// Tag read for this style.
-    let tag: String
-    
-    /// Style found in receiver `TextStyleGroup` instance.
-    let style: StyleProtocol?
-    
-    // MARK: - Initialization
-    
-    init(
-        tag: String,
-        style: StyleProtocol?
-    ) {
-        self.tag = tag
-        self.style = style
-    }
-    
-}
-
-private extension String {
-    
-    static let escapeAmpRegExp = try! NSRegularExpression(pattern: "&(?!(#[0-9]{2,4}|[A-z]{2,6});)", options: NSRegularExpression.Options(rawValue: 0))
-    
-    func escapeWithUnicodeEntities() -> String {
-        let range = NSRange(location: 0, length: self.count)
-        return String.escapeAmpRegExp.stringByReplacingMatches(
-            in: self,
-            options: NSRegularExpression.MatchingOptions(rawValue: 0),
-            range: range,
-            withTemplate: "&amp;"
-        )
-    }
-    
-}
-
