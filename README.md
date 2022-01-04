@@ -21,7 +21,7 @@ This is really useful for localising your apps for styled strings without having
 </p>
 
 <p align="center">
-iOS 14.0 / macOS 11.0 / tvOS 14.0
+iOS 15.0 / macOS 12.0 / tvOS 15.0 / watchOS 8.0
 </p>
 
 ## Supported `Text` modifiers
